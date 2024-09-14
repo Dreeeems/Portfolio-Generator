@@ -14,13 +14,24 @@
 
         <label for="name">Bio</label>
         <textarea  id="bio" name="bio" > </textarea><br> <br> 
-        <label for="photo">Photo de profil :</label>
-        <input type="file" id="photo" name="photo" accept="image/*" required><br><br>
+        <label for="profile-pic">Photo de profil :</label>
+        <input type="file" id="photo" name="profile-pic" accept="image/*" required><br><br>
 
-        <label for="projects">Liste des projets :</label>
-        <textarea id="projects" name="projects" placeholder="Séparer les projets par une virgule" required></textarea><br><br>
+        <h2>Projets</h2>
+        <div id="projects-container">
+            <div class="project">
+                <label for="project_title_1">Titre du projet :</label>
+                <input type="text" id="project_title_1" name="projects[0][title]" required><br><br>
+
+                <label for="project_description_1">Description :</label>
+                <textarea id="project_description_1" name="projects[0][description]" required></textarea><br><br>
+            </div>
+        </div>
+
+        <button type="button" onclick="addProject()">Ajouter un projet</button><br><br>
 
         <input type="submit" value="Générer le Portfolio">
-    </form>
+
+    <script src="./assets/script.js">  </script>
 </body>
 </html>

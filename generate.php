@@ -3,16 +3,13 @@
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $name = htmlspecialchars($_POST['name']);
     $bio = htmlspecialchars($_POST['bio']);
-    $projects = htmlspecialchars($_POST['projects']);
-    $projectList = explode(',', $projects);
+    $projects = $_POST['projects'];
 
-    // Gérer le téléchargement de l'image
     $target_dir = "portfolios/";
     $photo = $_FILES['photo']['name'];
     $target_file = $target_dir . basename($photo);
     move_uploaded_file($_FILES['photo']['tmp_name'], $target_file);
 
-    // Créer un fichier HTML pour le portfolio
     $portfolioHTML = "
     <!DOCTYPE html>
     <html lang='fr'>
@@ -30,17 +27,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <h2>Projets</h2>
             <ul>";
 
-    foreach ($projectList as $project) {
-        $portfolioHTML .= "<li>" . trim($project) . "</li>";
+    foreach ($projects as $project) {
+        $title = htmlspecialchars($project["title"]);
+        $description = htmlspecialchars($project['description']);
+        $portfolioHTML .= "
+        <li>
+            <h3>$title</h3>
+            <p>$description</p>
+        </li>";
     }
+
 
     $portfolioHTML .= "</ul></div></body></html>";
 
-    // Sauvegarder le fichier
     $portfolioFileName = $target_dir . strtolower(str_replace(' ', '_', $name)) . '_portfolio.html';
     file_put_contents($portfolioFileName, $portfolioHTML);
 
-    // Rediriger l'utilisateur vers son portfolio
     header("Location: $portfolioFileName");
 }
 ?>
