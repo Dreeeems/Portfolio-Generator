@@ -10,12 +10,12 @@
 
     <form action="generate.php" method="POST" enctype="multipart/form-data">
         <label for="name">Your whole name</label>
-        <input type="text" id="name" required/> <br> <br>
+        <input type="text" id="name" required name="name"/> <br> <br>
 
-        <label for="name">Bio</label>
+        <label for="bio">Bio</label>
         <textarea  id="bio" name="bio" > </textarea><br> <br> 
         <label for="profile-pic">Photo de profil :</label>
-        <input type="file" id="photo" name="profile-pic" accept="image/*" required><br><br>
+        <input type="file" id="profile_pic" name="profile_pic" accept="image/*" required><br><br>
 
         <h2>Projets</h2>
         <div id="projects-container">
