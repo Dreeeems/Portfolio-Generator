@@ -1,4 +1,23 @@
 let project = 1;
+let skill = 1;
+
+//Basic function to add a skill in the list
+
+function addSkill() {
+  skill++;
+
+  const skillContainer = document.getElementById("skills-container");
+  const skillcode = `
+  <div class="skill">
+  <label for="skill_title_${skill}"> Skill name </label>
+  <input type="text" id="skill_title_${skill}" name="skills[${
+    skill - 1
+  }][title]" required><br><br>
+
+  `;
+
+  skillContainer.insertAdjacentHTML("beforeend", skillcode);
+}
 
 // basic function to add a project to the list
 function addProject() {
