@@ -11,7 +11,7 @@ function generateHeader($name) {
         <link rel='stylesheet' href='./assets/css/template1.css'>
         <link
     href='https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css'
-    rel='style'
+    rel='style'>
     </head>
     ";
 }
@@ -19,15 +19,20 @@ function generateHeader($name) {
 // Site top section
 function generateTopSection($name,$job,$bio){
     $content = "
+    <body>
+    <nav>
+    <div class='nav_logo'> <a href='#'>" . strtoupper(substr($name, 0, 1)) ."<span>" . strtoupper(substr($name,1,1)) . "</span>
+    </a>
+    </nav>
     <header>
     <div class='section_container header_container'>
-    <p> <span> Hi ! </span> 
+    <p> <span> Hi ! </span> my name is</p>
     <h1>$name</h1>
     <h2 class='section_title'>
-     $job.
+     $job
     </h2>
     <p>
-
+    $bio
     </p>
     </div>
     </header>
@@ -35,26 +40,26 @@ function generateTopSection($name,$job,$bio){
    return $content;
 }
 
-// Menu
-function generateMenu() {
-    return '
-    <div class="menu">
-        <div class="pill">Menu 1</div>
-        <div class="pill">Menu 2</div>
-          
-        <div class="pill">Menu 3</div>
-        <div class="pill">Menu 4</div>
-    </div>';
-}
+
 
 // Main Content
-function generateMainContent($bio, $photoPath, $projects, $name) {
+function generateMainContent($bio, $photoPath, $projects, $name,$job) {
     $content = "
-    <main>
-        <section id='about'>
-            
+
+        <section class='about'>
+            <div class='section_container about_container'>
+                <div class='about_image'>
+                    <img src='../$photoPath' alt='Picture of $name'/>
+                </div>
+                <div class='about_content'>
+                    <h2 class='section_title'> About <span> Myself </span></h2>
+                    <p class='section_subtitle'> $job </p>
+                    <p class='about_details'> $bio </p>
+                </div>
+            </div>
             <h2>$name</h2>
             <p>$bio</p>
+            <p>$photoPath </p>
         </section>
         <section id='projects'>
             <h2>Projets</h2>
@@ -80,6 +85,7 @@ function generateFooter() {
     <footer>
         <p>&copy; " . date('Y') . "</p>
     </footer>
+    </body>
     ";
 }
 
@@ -91,8 +97,7 @@ function generatePortfolioHTML($name,$job, $bio, $photoPath, $projects) {
     " . generateHeader($name) . "
     <body>
         " . generateTopSection($name,$job,$bio) . "
-        " . generateMenu() . "
-        " . generateMainContent($bio, $photoPath, $projects, $name) . "
+        " . generateMainContent($bio, $photoPath, $projects, $name,$job) . "
         " . generateFooter() . "
     </body>
     </html>";
@@ -119,7 +124,7 @@ function handlePortfolioCreation() {
             die("Erreur lors du téléchargement de la photo.");
         }
 
-        $portfolioHTML = generatePortfolioHTML($name, $bio, $photoPath, $projects,$job);
+        $portfolioHTML = generatePortfolioHTML($name,$job, $bio, $photoPath, $projects);
         $portfolioFileName = savePortfolioToFile($name, $portfolioHTML);
 
         header("Location: $portfolioFileName");

@@ -55,6 +55,7 @@ img {
 
 a {
   text-decoration: none;
+  color: var(--white);
 }
 
 body {
@@ -81,7 +82,7 @@ nav .nav_logo a span {
 
 header {
   height: 100vh;
-  background-image: url();
+  background-image: url("../img/template1/background.png");
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -102,7 +103,7 @@ header {
 }
 
 .header_container p span {
-  color: var(--text-light);
+  color: var(--white);
   padding: 0.5rem 1rem;
   background-color: var(--secondary-color);
   border-radius: 5px;
@@ -112,4 +113,64 @@ header {
 .header_container h1 {
   font-size: 3rem;
   line-height: 3rem;
+}
+
+.action_btns {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.about {
+  background-color: var(--text-dark);
+}
+
+.about_container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.about_image,
+.about_content {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.about_image {
+  max-width: 350px;
+}
+.about_details {
+  padding: 2rem 0;
+  color: var(--text-light);
+  text-align: center;
+}
+
+/* Responsive Media queries*/
+
+@media (min-width: 640px) {
+  .section_title {
+    font-size: 2.5rem;
+  }
+
+  .header_container h1 {
+    font-size: 4rem;
+    line-height: 4rem;
+  }
+
+  .about_container {
+    flex-direction: row;
+  }
+  .about_content {
+    align-items: flex-start;
+  }
+  .about_details {
+    text-align: left;
+  }
+}
+
+@media (min-width: 768px) {
 }
