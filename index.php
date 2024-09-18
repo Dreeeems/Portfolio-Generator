@@ -14,7 +14,8 @@
         <div class="input_container">
         <label for="name">Your whole name</label>
         <input type="text" id="name" required name="name"/> <br> <br>
-
+        <label for="job">Your job</label>
+        <input type="text" id="job" required name="job"/> <br> <br>
         <label for="bio">About you</label>
         <textarea  id="bio" name="bio" > </textarea><br> <br> 
         <label for="profile-pic">Profile pic:</label>
