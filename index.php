@@ -24,22 +24,24 @@
         <h2 class="projets">Skills</h2>
         <div id="skills-container">
             <div class="skill">
-                <label for="skill_title">Skill name :</label>
-                <input type="text" id="skill_title" name="skills[0][title]" required><br><br>
+                <label for="skill_title">Enter skills separeted with a coma :</label>
+                <input type="text" id="skill_title" name="skills" required><br><br>
         
                
             </div>
             
         </div>
-        <button type="button" onclick="addSkill()">Add a skill</button><br><br>
         <h2 class="projets">Projets</h2>
         <div id="projects-container">
             <div class="project">
-                <label for="project_title_1">Titre du projet :</label>
+                <label for="project_title_1">Title :</label>
                 <input type="text" id="project_title_1" name="projects[0][title]" required><br><br>
 
                 <label for="project_description_1">Description :</label>
                 <textarea id="project_description_1" name="projects[0][description]" required></textarea><br><br>
+
+                <label for="project_link_1">Project link :</label>
+                <input type="text" id="project_link_1" name="projects[0][link]" required><br><br>
             </div>
         </div>
 

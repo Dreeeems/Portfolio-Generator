@@ -1,6 +1,21 @@
 <?php
 // generate.php
 
+$skillIcons = [
+    'Html' => 'fa-brands fa-html5',
+    'Css' => 'fa-brands fa-css3-alt',
+    'Javascript' => 'fa-brands fa-js',
+    'Php' => 'fa-brands fa-php',
+    'Python' => 'fa-brands fa-python',
+    'React' => 'fa-brands fa-react',
+    'Node.js' => 'fa-brands fa-node-js',
+    'Mysql' => 'fa-solid fa-database',
+    'Git' => 'fa-brands fa-git-alt',
+];
+
+
+
+
 // Header
 function generateHeader($name) {
     return "
@@ -9,9 +24,8 @@ function generateHeader($name) {
         <meta name='viewport' content='width=device-width, initial-scale=1.0'>
         <title>Portfolio de $name</title>
         <link rel='stylesheet' href='./assets/css/template1.css'>
-        <link
-    href='https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css'
-    rel='style'>
+       <link rel='stylesheet' 
+        href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css'>
     </head>
     ";
 }
@@ -31,9 +45,6 @@ function generateTopSection($name,$job,$bio){
     <h2 class='section_title'>
      $job
     </h2>
-    <p>
-    $bio
-    </p>
     </div>
     </header>
    ";
@@ -43,7 +54,8 @@ function generateTopSection($name,$job,$bio){
 
 
 // Main Content
-function generateMainContent($bio, $photoPath, $projects, $name,$job) {
+function generateMainContent($bio, $photoPath,$skills,$projects, $name,$job) {
+    global $skillIcons;
     $content = "
 
         <section class='about'>
@@ -56,26 +68,52 @@ function generateMainContent($bio, $photoPath, $projects, $name,$job) {
                     <p class='section_subtitle'> $job </p>
                     <p class='about_details'> $bio </p>
                 </div>
-            </div>
-            <h2>$name</h2>
-            <p>$bio</p>
-            <p>$photoPath </p>
-        </section>
-        <section id='projects'>
-            <h2>Projets</h2>
-            <ul>";
+                </div>
+               </section>
+                    
+               <section class='stacks'>
+                    <div class='section_container stacks_container'>
+                    <h2 class='section_title'><span> My</span> Stacks </h2>
+                    <div class='stacks_grid'>
+                     ";
+
+                foreach ($skills as $skill){
+                    $skillName = ucfirst(strtolower(trim($skill)));
+                    $icon = $skillIcons[$skillName];
+                    $content .="
+                    <div class='stack_card'>
+                        <i class='$icon fa-2xl'></i>
+                        <h2> $skill</h2>
+                    </div>
+                    ";
+                }
+
+               
+                $content .=" </div>
+                </div>
+           </section>
+           <section class='project'>
+            <div class='section_container section_container'>
+                <p class='section_subtitle'> Portfolio </p>
+                <h2 class='section_title'> <span> My </span> Projects </h2>
+                <div class='project_grid'>
+           ";
+               
 
     foreach ($projects as $project) {
         $title = htmlspecialchars($project['title']);
         $description = htmlspecialchars($project['description']);
+        $link = htmlspecialchars($project['link']);
         $content .= "
-        <li>
-            <h3>$title</h3>
-            <p>$description</p>
-        </li>";
+        <div class='project_card'>
+        <h2>$title</h2>
+        <p>$description</P>
+        <a href='$link' target='_blank'> Check the project ! </a>
+        </div>
+        ";
     }
 
-    $content .= "</ul></section>";
+    $content .= "</div></div></section>";
     return $content;
 }
 
@@ -90,14 +128,14 @@ function generateFooter() {
 }
 
 // Generate Portfolio HTML
-function generatePortfolioHTML($name,$job, $bio, $photoPath, $projects) {
+function generatePortfolioHTML($name,$job, $bio, $photoPath,$skills, $projects) {
     $html = "
     <!DOCTYPE html>
     <html lang='fr'>
     " . generateHeader($name) . "
     <body>
         " . generateTopSection($name,$job,$bio) . "
-        " . generateMainContent($bio, $photoPath, $projects, $name,$job) . "
+        " . generateMainContent($bio, $photoPath, $skills,$projects, $name,$job) . "
         " . generateFooter() . "
     </body>
     </html>";
@@ -112,19 +150,21 @@ function handlePortfolioCreation() {
         $name = isset($_POST['name']) ? htmlspecialchars($_POST['name']) : '';
         $job = isset($_POST['job']) ? htmlspecialchars($_POST['job']) : '';
         $bio = isset($_POST['bio']) ? htmlspecialchars($_POST['bio']) : '';
-        $projects = isset($_POST['projects']) ? $_POST['projects'] : [];
 
+        $skills = isset($_POST['skills']) ? explode(',', htmlspecialchars($_POST['skills'])) : [];
+        $projects = isset($_POST['projects']) ? $_POST['projects'] : [];
         if (isset($_FILES['profile_pic']) && $_FILES['profile_pic']['error'] === UPLOAD_ERR_OK) {
             $photoPath = uploadPhoto($_FILES['profile_pic']);
         } else {
             $photoPath = null; 
         }
+        
 
         if (!$photoPath) {
             die("Erreur lors du téléchargement de la photo.");
         }
 
-        $portfolioHTML = generatePortfolioHTML($name,$job, $bio, $photoPath, $projects);
+        $portfolioHTML = generatePortfolioHTML($name,$job, $bio, $photoPath,$skills, $projects);
         $portfolioFileName = savePortfolioToFile($name, $portfolioHTML);
 
         header("Location: $portfolioFileName");
@@ -134,7 +174,7 @@ function handlePortfolioCreation() {
 
 // Upload Photo
 function uploadPhoto($photoFile) {
-    $target_dir = "portfolios/";
+    $target_dir = "portfolios/assets/img/pictures/";
     $photoName = basename($photoFile['name']);
     $target_file = $target_dir . $photoName;
 

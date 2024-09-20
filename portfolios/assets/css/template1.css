@@ -149,6 +149,101 @@ header {
   text-align: center;
 }
 
+.stacks,
+.project {
+  background-color: var(--primary-color);
+  padding: 2rem 0;
+}
+
+.stacks_grid,
+.project_grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+.stack_card,
+.project_card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  background-color: var(--text-dark);
+  border-radius: 10px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-align: center;
+}
+
+.stack_card:hover,
+.project_card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.stack_card i {
+  font-size: 4rem;
+  color: var(--white);
+  margin-bottom: 1rem;
+}
+
+.stack_card h2 {
+  color: var(--white);
+  font-size: 1.25rem;
+  margin-top: 1rem;
+  font-weight: 600;
+}
+
+.project_card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  background-color: var(--text-dark);
+  border-radius: 10px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  color: var(--white);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.project_card h2 {
+  color: var(--white);
+  font-size: 1.5rem;
+  margin: 1rem 0;
+  font-weight: 700;
+}
+
+.project_card p {
+  color: var(--text-light);
+  font-size: 1rem;
+  margin: 0.5rem 0;
+}
+
+.project_card a {
+  padding: 0.75rem 1.5rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--white);
+  background-color: var(--secondary-color);
+  border-radius: 5px;
+  text-decoration: none;
+  transition: background-color 0.3s;
+}
+
+.project_card a:hover {
+  background-color: var(--secondary-color-dark);
+}
+
+.project_card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
 /* Responsive Media queries*/
 
 @media (min-width: 640px) {
@@ -173,4 +268,11 @@ header {
 }
 
 @media (min-width: 768px) {
+  .stack_card i {
+    font-size: 3rem;
+  }
+
+  .stack_card h2 {
+    font-size: 1rem;
+  }
 }
