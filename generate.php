@@ -94,10 +94,10 @@ function generateMainContent($bio, $photoPath, $skills, $projects, $name, $job) 
     ";
 
     foreach ($projects as $project) {
-        $title = htmlspecialchars($project['title']);
-        $description = htmlspecialchars($project['description']);
-        $link = htmlspecialchars($project['link']);
-        $imagePath = isset($project['imagePath']) ? htmlspecialchars($project['imagePath']) : '';
+        $title = isset($project['title']) ? htmlspecialchars($project['title']) : 'Untitled Project';
+        $description = isset($project['description']) ? htmlspecialchars($project['description']) : 'No description available.';
+        $link = isset($project['link']) ? htmlspecialchars($project['link']) : '#';
+        $imagePath = isset($project['imagePath']) ? htmlspecialchars($project['imagePath']) : '../path/to/default_image.jpg';  // Fallback to default image
 
         $content .= "
             <div class='project_card'>
@@ -112,6 +112,7 @@ function generateMainContent($bio, $photoPath, $skills, $projects, $name, $job) 
     $content .= "</div></div></section>";
     return $content;
 }
+
 
 // Footer
 function generateFooter() {
@@ -156,18 +157,25 @@ function handlePortfolioCreation() {
       if (!$photoPath) {
         die("Erreur lors du téléchargement de la photo de profil.");
       }
-     // Upload project images
-for ($i = 0; $i < count($projects); $i++) {
+    // Filter
+$projects = array_filter($projects, function($project) {
+    return isset($project['title']) && !empty(trim($project['title']));
+});
+
+// Upload project images pour chaque projet non vide
+foreach ($projects as $i => &$project) {
     if (isset($_FILES['projects']['name'][$i]['pic']) && $_FILES['projects']['error'][$i]['pic'] === UPLOAD_ERR_OK) {
-        $projects[$i]['imagePath'] = uploadProjectImg([
+        $project['imagePath'] = uploadProjectImg([
             'name' => $_FILES['projects']['name'][$i]['pic'],
             'tmp_name' => $_FILES['projects']['tmp_name'][$i]['pic'],
             'error' => $_FILES['projects']['error'][$i]['pic']
         ]);
     } else {
-        $projects[$i]['imagePath'] = null;
+        $project['imagePath'] = null;  // Pas d'image pour ce projet
     }
 }
+unset($project);  // Libérer la référence après le foreach
+
   
 
   
