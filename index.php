@@ -46,6 +46,8 @@
                 <label for="project_pic_1">Project-pic:</label>
                 <input type="file" id="project_pic_1" name="projects[0][pic]" accept="image/*" required><br><br>  
             </div>
+            <label for="github">Github link</label>
+                <input type="text" id="github" name="github"  required><br><br>
         </div>
 
         <button type="button" onclick="addProject()">Add a project</button><br><br>

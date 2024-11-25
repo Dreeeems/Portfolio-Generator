@@ -182,6 +182,13 @@ header {
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 
+.stack_card,
+.project_card img {
+  margin-top: 2rem;
+  max-width: 400px;
+  border-radius: 15px;
+}
+
 .stack_card i {
   font-size: 4rem;
   color: var(--white);
@@ -242,6 +249,43 @@ header {
 .project_card:hover {
   transform: translateY(-5px);
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+footer {
+  background-color: var(--primary-color);
+  color: var(--white);
+  text-align: center;
+  padding: 2rem 0;
+}
+
+footer .social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+footer .social-icons a {
+  font-size: 30rem;
+  color: var(--white);
+  transition: color 0.3s;
+}
+
+footer .social-icons a:hover {
+  color: var(--secondary-color);
+}
+
+footer p {
+  font-size: rem;
+  color: var(--text-light);
+}
+
+footer a {
+  text-decoration: none;
+}
+
+footer .social-icons a {
+  display: inline-block;
 }
 
 /* Responsive Media queries*/
