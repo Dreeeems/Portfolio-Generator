@@ -16,3 +16,18 @@ CSS, PHP,and JavaScript. Upload your photo, add your bio, and list your skills a
 - **💾 Back-end: PHP**
 - **⚙️ Logic**: Javascript (Form handling)
 - **📤 File Uploads**: PHP File Handling
+
+## ⚙️ **How it works ?**
+
+- Install a server app like [WAMPServer](https://wampserver.aviatechno.net/) (for Windows)
+- clone this repo on the WWW folder
+- Launch WAMPServer.
+- Open your browser and enjoy generating your portfolio!
+
+## 🖼️ **Changing the Background Image**
+
+To change the background image of your portfolio template, go to the `portfolios/assets/template1` folder. Replace the current background image with your own by simply updating the image file in that folder. Make sure the new image file has the same name or update the `CSS` file to reflect the new name.
+
+## 🆕 **Future Updates**
+
+- More templates will be available soon! Stay tuned for additional designs and features.
